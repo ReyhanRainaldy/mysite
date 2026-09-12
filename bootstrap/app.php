@@ -20,6 +20,11 @@ $app = Application::configure(basePath: dirname(__DIR__))
         );
     })->create();
 
+// Register core providers for serverless
+$app->register(Illuminate\Filesystem\FilesystemServiceProvider::class);
+$app->register(Illuminate\View\ViewServiceProvider::class);
+$app->register(Illuminate\Session\SessionServiceProvider::class);
+
 // Override storage path for Vercel serverless environment
 if (isset($_ENV['VERCEL']) || isset($_SERVER['VERCEL']) || env('APP_ENV') === 'production' || isset($_ENV['APP_STORAGE'])) {
     $storagePath = $_ENV['APP_STORAGE'] ?? '/tmp/storage';

@@ -22,6 +22,7 @@ $_ENV['CACHE_STORE'] = 'array';
 $_ENV['LOG_CHANNEL'] = 'stderr';
 $_ENV['DB_CONNECTION'] = 'sqlite';
 $_ENV['DB_DATABASE'] = ':memory:';
+$_ENV['APP_MAINTENANCE_DRIVER'] = 'array';
 
 putenv("APP_STORAGE={$storagePath}");
 putenv("VIEW_COMPILED_PATH={$storagePath}/framework/views");
@@ -30,6 +31,7 @@ putenv("CACHE_STORE=array");
 putenv("LOG_CHANNEL=stderr");
 putenv("DB_CONNECTION=sqlite");
 putenv("DB_DATABASE=:memory:");
+putenv("APP_MAINTENANCE_DRIVER=array");
 
 try {
     require __DIR__ . '/../public/index.php';
