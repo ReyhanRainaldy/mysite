@@ -1,5 +1,8 @@
 <?php
 
+error_reporting(E_ALL & ~E_DEPRECATED & ~E_NOTICE & ~E_WARNING);
+ini_set('display_errors', '0');
+
 $storagePath = '/tmp/storage';
 @mkdir($storagePath . '/framework/views', 0755, true);
 @mkdir($storagePath . '/framework/cache/data', 0755, true);
@@ -22,7 +25,7 @@ $envVars = [
     'DB_CONNECTION' => 'sqlite',
     'DB_DATABASE' => ':memory:',
     'APP_MAINTENANCE_DRIVER' => 'array',
-    'APP_DEBUG' => 'true',
+    'APP_DEBUG' => 'false',
 ];
 
 foreach ($envVars as $key => $value) {
