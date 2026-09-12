@@ -10,13 +10,17 @@ class PortfolioController extends Controller
     {
         $portfolioData = config('portfolio');
 
+        if (!$portfolioData || !is_array($portfolioData)) {
+            $portfolioData = require config_path('portfolio.php');
+        }
+
         return view('portfolio', [
-            'personal' => $portfolioData['personal'],
-            'education' => $portfolioData['education'],
-            'experience' => $portfolioData['experience'],
-            'organization' => $portfolioData['organization'],
-            'skills' => $portfolioData['skills'],
-            'projects' => $portfolioData['projects']
+            'personal' => $portfolioData['personal'] ?? [],
+            'education' => $portfolioData['education'] ?? [],
+            'experience' => $portfolioData['experience'] ?? [],
+            'organization' => $portfolioData['organization'] ?? [],
+            'skills' => $portfolioData['skills'] ?? [],
+            'projects' => $portfolioData['projects'] ?? []
         ]);
     }
 }
