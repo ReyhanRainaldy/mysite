@@ -17,14 +17,11 @@ $app = Application::configure(basePath: dirname(__DIR__))
         //
     })->create();
 
-// Override storage path for Vercel serverless environment
-if (isset($_ENV['VERCEL']) || isset($_SERVER['VERCEL']) || env('APP_ENV') === 'production' || isset($_ENV['APP_STORAGE'])) {
-    $storagePath = $_ENV['APP_STORAGE'] ?? '/tmp/storage';
-    @mkdir($storagePath . '/framework/views', 0755, true);
-    @mkdir($storagePath . '/framework/cache/data', 0755, true);
-    @mkdir($storagePath . '/framework/sessions', 0755, true);
-    @mkdir($storagePath . '/logs', 0755, true);
-    $app->useStoragePath($storagePath);
-}
+$storagePath = env('APP_STORAGE', '/tmp/storage');
+@mkdir($storagePath . '/framework/views', 0755, true);
+@mkdir($storagePath . '/framework/cache/data', 0755, true);
+@mkdir($storagePath . '/framework/sessions', 0755, true);
+@mkdir($storagePath . '/logs', 0755, true);
+$app->useStoragePath($storagePath);
 
 return $app;
