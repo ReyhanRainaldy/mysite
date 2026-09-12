@@ -1,6 +1,8 @@
 <?php
 
-ini_set('display_errors', '0');
+ini_set('display_errors', '1');
+ini_set('display_startup_errors', '1');
+error_reporting(E_ALL);
 
 // Remove stale local bootstrap cache files if present
 @unlink(__DIR__ . '/../bootstrap/cache/services.php');
@@ -33,11 +35,26 @@ putenv("DB_CONNECTION=sqlite");
 putenv("DB_DATABASE=:memory:");
 putenv("APP_MAINTENANCE_DRIVER=array");
 
+if (!defined('LARAVEL_START')) {
+    define('LARAVEL_START', microtime(true));
+}
+
+require __DIR__ . '/../vendor/autoload.php';
+
+/** @var \Illuminate\Foundation\Application $app */
+$app = require_once __DIR__ . '/../bootstrap/app.php';
+
+// Pre-register essential view and cookie providers
+$app->register(Illuminate\Cookie\CookieServiceProvider::class);
+$app->register(Illuminate\View\ViewServiceProvider::class);
+
 try {
-    require __DIR__ . '/../public/index.php';
+    $request = \Illuminate\Http\Request::capture();
+    $response = $app->handleRequest($request);
+    $response->send();
 } catch (\Throwable $e) {
     http_response_code(500);
-    echo "<h1>Vercel Deployment Error</h1>";
+    echo "<h1>Vercel Deployment Boot Exception</h1>";
     echo "<p><strong>Message:</strong> " . htmlspecialchars($e->getMessage()) . "</p>";
     echo "<p><strong>Location:</strong> " . htmlspecialchars($e->getFile()) . " (line " . $e->getLine() . ")</p>";
     echo "<pre>" . htmlspecialchars($e->getTraceAsString()) . "</pre>";
