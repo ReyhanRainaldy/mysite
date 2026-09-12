@@ -30,4 +30,14 @@ foreach ($envVars as $key => $value) {
     $_SERVER[$key] = $value;
 }
 
-require __DIR__ . '/../public/index.php';
+try {
+    require __DIR__ . '/../public/index.php';
+} catch (\Throwable $e) {
+    http_response_code(500);
+    echo "<h1>ERROR CAUGHT:</h1>";
+    echo "<pre>";
+    echo get_class($e) . ": " . $e->getMessage() . "\n";
+    echo "File: " . $e->getFile() . ":" . $e->getLine() . "\n\n";
+    echo $e->getTraceAsString();
+    echo "</pre>";
+}
