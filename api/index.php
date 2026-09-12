@@ -22,6 +22,7 @@ $envVars = [
     'DB_CONNECTION' => 'sqlite',
     'DB_DATABASE' => ':memory:',
     'APP_MAINTENANCE_DRIVER' => 'array',
+    'APP_DEBUG' => 'true',
 ];
 
 foreach ($envVars as $key => $value) {
