@@ -10,6 +10,7 @@ $storagePath = env('APP_STORAGE', '/tmp/storage');
 @mkdir($storagePath . '/framework/cache/data', 0755, true);
 @mkdir($storagePath . '/framework/sessions', 0755, true);
 @mkdir($storagePath . '/logs', 0755, true);
+@mkdir($storagePath . '/bootstrap/cache', 0755, true);
 
 $app = Application::configure(basePath: $basePath)
     ->withRouting(
@@ -21,16 +22,7 @@ $app = Application::configure(basePath: $basePath)
         //
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        $exceptions->render(function (\Throwable $e) {
-            http_response_code(500);
-            echo "<h1>ORIGINAL EXCEPTION CAUGHT:</h1>";
-            echo "<pre>";
-            echo get_class($e) . ": " . $e->getMessage() . "\n";
-            echo "File: " . $e->getFile() . ":" . $e->getLine() . "\n\n";
-            echo $e->getTraceAsString();
-            echo "</pre>";
-            exit;
-        });
+        //
     })
     ->create();
 

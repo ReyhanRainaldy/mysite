@@ -5,25 +5,29 @@ $storagePath = '/tmp/storage';
 @mkdir($storagePath . '/framework/cache/data', 0755, true);
 @mkdir($storagePath . '/framework/sessions', 0755, true);
 @mkdir($storagePath . '/logs', 0755, true);
+@mkdir($storagePath . '/bootstrap/cache', 0755, true);
 
-putenv("APP_STORAGE={$storagePath}");
-putenv("VIEW_COMPILED_PATH={$storagePath}/framework/views");
-putenv("SESSION_DRIVER=array");
-putenv("CACHE_STORE=array");
-putenv("LOG_CHANNEL=stderr");
-putenv("LOG_STACK=stderr");
-putenv("DB_CONNECTION=sqlite");
-putenv("DB_DATABASE=:memory:");
-putenv("APP_MAINTENANCE_DRIVER=array");
+$envVars = [
+    'APP_STORAGE' => $storagePath,
+    'VIEW_COMPILED_PATH' => "{$storagePath}/framework/views",
+    'APP_PACKAGES_CACHE_PATH' => "{$storagePath}/bootstrap/cache/packages.php",
+    'APP_SERVICES_CACHE_PATH' => "{$storagePath}/bootstrap/cache/services.php",
+    'APP_CONFIG_CACHE_PATH' => "{$storagePath}/bootstrap/cache/config.php",
+    'APP_ROUTES_CACHE_PATH' => "{$storagePath}/bootstrap/cache/routes-v7.php",
+    'APP_EVENTS_CACHE_PATH' => "{$storagePath}/bootstrap/cache/events.php",
+    'SESSION_DRIVER' => 'array',
+    'CACHE_STORE' => 'array',
+    'LOG_CHANNEL' => 'stderr',
+    'LOG_STACK' => 'stderr',
+    'DB_CONNECTION' => 'sqlite',
+    'DB_DATABASE' => ':memory:',
+    'APP_MAINTENANCE_DRIVER' => 'array',
+];
 
-$_ENV['APP_STORAGE'] = $storagePath;
-$_ENV['VIEW_COMPILED_PATH'] = "{$storagePath}/framework/views";
-$_ENV['SESSION_DRIVER'] = 'array';
-$_ENV['CACHE_STORE'] = 'array';
-$_ENV['LOG_CHANNEL'] = 'stderr';
-$_ENV['LOG_STACK'] = 'stderr';
-$_ENV['DB_CONNECTION'] = 'sqlite';
-$_ENV['DB_DATABASE'] = ':memory:';
-$_ENV['APP_MAINTENANCE_DRIVER'] = 'array';
+foreach ($envVars as $key => $value) {
+    putenv("{$key}={$value}");
+    $_ENV[$key] = $value;
+    $_SERVER[$key] = $value;
+}
 
 require __DIR__ . '/../public/index.php';
