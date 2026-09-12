@@ -19,11 +19,11 @@
     "DB_DATABASE": ":memory:",
     "APP_MAINTENANCE_DRIVER": "array",
     "VIEW_COMPILED_PATH": "/tmp/storage/framework/views",
-    "APP_PACKAGES_CACHE_PATH": "/tmp/storage/bootstrap/cache/packages.php",
-    "APP_SERVICES_CACHE_PATH": "/tmp/storage/bootstrap/cache/services.php",
-    "APP_CONFIG_CACHE_PATH": "/tmp/storage/bootstrap/cache/config.php",
-    "APP_ROUTES_CACHE_PATH": "/tmp/storage/bootstrap/cache/routes-v7.php",
-    "APP_EVENTS_CACHE_PATH": "/tmp/storage/bootstrap/cache/events.php"
+    "APP_PACKAGES_CACHE": "/tmp/storage/bootstrap/cache/packages.php",
+    "APP_SERVICES_CACHE": "/tmp/storage/bootstrap/cache/services.php",
+    "APP_CONFIG_CACHE": "/tmp/storage/bootstrap/cache/config.php",
+    "APP_ROUTES_CACHE": "/tmp/storage/bootstrap/cache/routes-v7.php",
+    "APP_EVENTS_CACHE": "/tmp/storage/bootstrap/cache/events.php"
   },
   "routes": [
     {
