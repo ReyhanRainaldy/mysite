@@ -44,9 +44,20 @@ require __DIR__ . '/../vendor/autoload.php';
 /** @var \Illuminate\Foundation\Application $app */
 $app = require_once __DIR__ . '/../bootstrap/app.php';
 
-// Pre-register essential view and cookie providers
-$app->register(Illuminate\Cookie\CookieServiceProvider::class);
-$app->register(Illuminate\View\ViewServiceProvider::class);
+// Register essential core framework providers
+$coreProviders = [
+    Illuminate\Events\EventServiceProvider::class,
+    Illuminate\Log\LogServiceProvider::class,
+    Illuminate\Routing\RoutingServiceProvider::class,
+    Illuminate\Filesystem\FilesystemServiceProvider::class,
+    Illuminate\Cookie\CookieServiceProvider::class,
+    Illuminate\View\ViewServiceProvider::class,
+    Illuminate\Session\SessionServiceProvider::class,
+];
+
+foreach ($coreProviders as $provider) {
+    $app->register($provider);
+}
 
 try {
     $request = \Illuminate\Http\Request::capture();
