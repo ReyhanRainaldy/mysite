@@ -7,6 +7,10 @@ $storagePath = '/tmp/storage';
 @mkdir($storagePath . '/logs', 0755, true);
 @mkdir($storagePath . '/bootstrap/cache', 0755, true);
 
+if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') {
+    $_SERVER['HTTPS'] = 'on';
+}
+
 $envVars = [
     'APP_STORAGE' => $storagePath,
     'VIEW_COMPILED_PATH' => "{$storagePath}/framework/views",
@@ -25,6 +29,8 @@ $envVars = [
     'APP_MAINTENANCE_STORE' => 'array',
     'APP_ENV' => 'production',
     'APP_DEBUG' => 'false',
+    'APP_URL' => 'https://mysite-peach-five.vercel.app',
+    'ASSET_URL' => 'https://mysite-peach-five.vercel.app',
 ];
 
 foreach ($envVars as $key => $value) {
