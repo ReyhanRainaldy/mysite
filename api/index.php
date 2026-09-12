@@ -22,8 +22,8 @@ $envVars = [
     'DB_CONNECTION' => 'sqlite',
     'DB_DATABASE' => ':memory:',
     'APP_MAINTENANCE_DRIVER' => 'array',
-    'APP_ENV' => 'local',
-    'APP_DEBUG' => 'true',
+    'APP_ENV' => 'production',
+    'APP_DEBUG' => 'false',
 ];
 
 foreach ($envVars as $key => $value) {
@@ -32,4 +32,20 @@ foreach ($envVars as $key => $value) {
     $_SERVER[$key] = $value;
 }
 
-require __DIR__ . '/../public/index.php';
+define('LARAVEL_START', microtime(true));
+
+require __DIR__ . '/../vendor/autoload.php';
+
+/** @var \Illuminate\Foundation\Application $app */
+$app = require_once __DIR__ . '/../bootstrap/app.php';
+
+$kernel = $app->make(\Illuminate\Contracts\Http\Kernel::class);
+
+$response = $kernel->handle(
+    $request = \Illuminate\Http\Request::capture()
+);
+
+http_response_code($response->getStatusCode());
+$response->send();
+
+exit(0);
