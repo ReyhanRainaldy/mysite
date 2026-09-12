@@ -22,7 +22,7 @@ $envVars = [
     'DB_CONNECTION' => 'sqlite',
     'DB_DATABASE' => ':memory:',
     'APP_MAINTENANCE_DRIVER' => 'array',
-    'APP_DEBUG' => 'true',
+    'APP_DEBUG' => 'false',
 ];
 
 foreach ($envVars as $key => $value) {
@@ -31,4 +31,23 @@ foreach ($envVars as $key => $value) {
     $_SERVER[$key] = $value;
 }
 
-require __DIR__ . '/../public/index.php';
+define('LARAVEL_START', microtime(true));
+
+require __DIR__ . '/../vendor/autoload.php';
+
+/** @var \Illuminate\Foundation\Application $app */
+$app = require_once __DIR__ . '/../bootstrap/app.php';
+
+$kernel = $app->make(\Illuminate\Contracts\Http\Kernel::class);
+
+$response = $kernel->handle(
+    $request = \Illuminate\Http\Request::capture()
+);
+
+$response->send();
+
+try {
+    $kernel->terminate($request, $response);
+} catch (\Throwable $e) {
+    // Ignore shutdown termination errors on serverless
+}
