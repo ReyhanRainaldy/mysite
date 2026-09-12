@@ -22,16 +22,7 @@ $app = Application::configure(basePath: $basePath)
         //
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        $exceptions->renderable(function (\Throwable $e) {
-            http_response_code(500);
-            echo "<h1>EXCEPTION_RENDERABLE_CAUGHT</h1>";
-            echo "<pre>";
-            echo get_class($e) . ": " . $e->getMessage() . "\n";
-            echo "File: " . $e->getFile() . ":" . $e->getLine() . "\n\n";
-            echo $e->getTraceAsString();
-            echo "</pre>";
-            exit(0);
-        });
+        //
     })
     ->create();
 
