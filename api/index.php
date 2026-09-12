@@ -26,14 +26,4 @@ $_ENV['DB_CONNECTION'] = 'sqlite';
 $_ENV['DB_DATABASE'] = ':memory:';
 $_ENV['APP_MAINTENANCE_DRIVER'] = 'array';
 
-try {
-    require __DIR__ . '/../public/index.php';
-} catch (\Throwable $e) {
-    http_response_code(500);
-    echo "<h1>Vercel Deployment Error</h1>";
-    echo "<pre>";
-    echo "Error: " . $e->getMessage() . "\n";
-    echo "File: " . $e->getFile() . ":" . $e->getLine() . "\n\n";
-    echo "Trace:\n" . $e->getTraceAsString();
-    echo "</pre>";
-}
+require __DIR__ . '/../public/index.php';
