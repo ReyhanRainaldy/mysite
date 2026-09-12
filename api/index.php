@@ -1,8 +1,5 @@
 <?php
 
-error_reporting(E_ALL & ~E_DEPRECATED & ~E_NOTICE & ~E_WARNING);
-ini_set('display_errors', '0');
-
 $storagePath = '/tmp/storage';
 @mkdir($storagePath . '/framework/views', 0755, true);
 @mkdir($storagePath . '/framework/cache/data', 0755, true);
@@ -34,4 +31,16 @@ foreach ($envVars as $key => $value) {
     $_SERVER[$key] = $value;
 }
 
-require __DIR__ . '/../public/index.php';
+define('LARAVEL_START', microtime(true));
+
+require __DIR__ . '/../vendor/autoload.php';
+
+$app = require_once __DIR__ . '/../bootstrap/app.php';
+
+$kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
+
+$response = $kernel->handle(
+    $request = Illuminate\Http\Request::capture()
+);
+
+echo "STATUS_CODE_WAS: " . $response->getStatusCode() . "\n";
