@@ -22,7 +22,9 @@ $app = Application::configure(basePath: $basePath)
         //
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        //
+        $exceptions->report(function (\Throwable $e) {
+            echo "<h1>EX_REPORT_CAUGHT</h1><pre>" . get_class($e) . ": " . $e->getMessage() . "\nFile: " . $e->getFile() . ":" . $e->getLine() . "\n\n" . $e->getTraceAsString() . "</pre>";
+        });
     })
     ->create();
 
