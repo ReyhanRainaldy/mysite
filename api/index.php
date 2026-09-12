@@ -17,7 +17,7 @@ $storagePath = '/tmp/storage';
 
 $_ENV['APP_STORAGE'] = $storagePath;
 $_ENV['VIEW_COMPILED_PATH'] = $storagePath . '/framework/views';
-$_ENV['SESSION_DRIVER'] = 'cookie';
+$_ENV['SESSION_DRIVER'] = 'array';
 $_ENV['CACHE_STORE'] = 'array';
 $_ENV['LOG_CHANNEL'] = 'stderr';
 $_ENV['DB_CONNECTION'] = 'sqlite';
@@ -26,7 +26,7 @@ $_ENV['APP_MAINTENANCE_DRIVER'] = 'array';
 
 putenv("APP_STORAGE={$storagePath}");
 putenv("VIEW_COMPILED_PATH={$storagePath}/framework/views");
-putenv("SESSION_DRIVER=cookie");
+putenv("SESSION_DRIVER=array");
 putenv("CACHE_STORE=array");
 putenv("LOG_CHANNEL=stderr");
 putenv("DB_CONNECTION=sqlite");
