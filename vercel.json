@@ -10,7 +10,7 @@
   "env": {
     "VERCEL_PHP_VERSION": "8.3",
     "APP_ENV": "production",
-    "APP_DEBUG": "true",
+    "APP_DEBUG": "false",
     "APP_KEY": "base64:mQ3lAUJ2st/R1CxUJW79J8ee5MNNbtvUmceNoVrIl7c=",
     "LOG_CHANNEL": "stderr",
     "SESSION_DRIVER": "array",
