@@ -21,6 +21,8 @@ $envVars = [
     'LOG_STACK' => 'stderr',
     'DB_CONNECTION' => 'sqlite',
     'DB_DATABASE' => ':memory:',
+    'APP_MAINTENANCE_DRIVER' => 'cache',
+    'APP_MAINTENANCE_STORE' => 'array',
     'APP_ENV' => 'production',
     'APP_DEBUG' => 'false',
 ];

@@ -17,6 +17,8 @@
     "CACHE_STORE": "array",
     "DB_CONNECTION": "sqlite",
     "DB_DATABASE": ":memory:",
+    "APP_MAINTENANCE_DRIVER": "cache",
+    "APP_MAINTENANCE_STORE": "array",
     "VIEW_COMPILED_PATH": "/tmp/storage/framework/views",
     "APP_PACKAGES_CACHE": "/tmp/storage/bootstrap/cache/packages.php",
     "APP_SERVICES_CACHE": "/tmp/storage/bootstrap/cache/services.php",
