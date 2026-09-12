@@ -1,8 +1,12 @@
 <?php
 
-ini_set('display_errors', '1');
-ini_set('display_startup_errors', '1');
-error_reporting(E_ALL);
+ini_set('display_errors', '0');
+
+// Remove stale local bootstrap cache files if present
+@unlink(__DIR__ . '/../bootstrap/cache/services.php');
+@unlink(__DIR__ . '/../bootstrap/cache/packages.php');
+@unlink(__DIR__ . '/../bootstrap/cache/config.php');
+@unlink(__DIR__ . '/../bootstrap/cache/routes-v7.php');
 
 // Prepare writable /tmp storage paths for Vercel Serverless environment
 $storagePath = '/tmp/storage';
@@ -31,7 +35,7 @@ try {
     require __DIR__ . '/../public/index.php';
 } catch (\Throwable $e) {
     http_response_code(500);
-    echo "<h1>Vercel Deployment Exception</h1>";
+    echo "<h1>Vercel Deployment Error</h1>";
     echo "<p><strong>Message:</strong> " . htmlspecialchars($e->getMessage()) . "</p>";
     echo "<p><strong>Location:</strong> " . htmlspecialchars($e->getFile()) . " (line " . $e->getLine() . ")</p>";
     echo "<pre>" . htmlspecialchars($e->getTraceAsString()) . "</pre>";
