@@ -1,9 +1,34 @@
 <?php
 
-echo "<pre>";
-echo "REQUEST_URI: " . ($_SERVER['REQUEST_URI'] ?? 'N/A') . "\n";
-echo "SCRIPT_NAME: " . ($_SERVER['SCRIPT_NAME'] ?? 'N/A') . "\n";
-echo "PATH_INFO: " . ($_SERVER['PATH_INFO'] ?? 'N/A') . "\n";
-echo "PHP_SELF: " . ($_SERVER['PHP_SELF'] ?? 'N/A') . "\n";
-echo "SCRIPT_FILENAME: " . ($_SERVER['SCRIPT_FILENAME'] ?? 'N/A') . "\n";
-echo "</pre>";
+$storagePath = '/tmp/storage';
+@mkdir($storagePath . '/framework/views', 0755, true);
+@mkdir($storagePath . '/framework/cache/data', 0755, true);
+@mkdir($storagePath . '/framework/sessions', 0755, true);
+@mkdir($storagePath . '/logs', 0755, true);
+@mkdir($storagePath . '/bootstrap/cache', 0755, true);
+
+$envVars = [
+    'APP_STORAGE' => $storagePath,
+    'VIEW_COMPILED_PATH' => "{$storagePath}/framework/views",
+    'APP_PACKAGES_CACHE' => "{$storagePath}/bootstrap/cache/packages.php",
+    'APP_SERVICES_CACHE' => "{$storagePath}/bootstrap/cache/services.php",
+    'APP_CONFIG_CACHE' => "{$storagePath}/bootstrap/cache/config.php",
+    'APP_ROUTES_CACHE' => "{$storagePath}/bootstrap/cache/routes-v7.php",
+    'APP_EVENTS_CACHE' => "{$storagePath}/bootstrap/cache/events.php",
+    'SESSION_DRIVER' => 'array',
+    'CACHE_STORE' => 'array',
+    'LOG_CHANNEL' => 'stderr',
+    'LOG_STACK' => 'stderr',
+    'DB_CONNECTION' => 'sqlite',
+    'DB_DATABASE' => ':memory:',
+    'APP_MAINTENANCE_DRIVER' => 'array',
+    'APP_DEBUG' => 'true',
+];
+
+foreach ($envVars as $key => $value) {
+    putenv("{$key}={$value}");
+    $_ENV[$key] = $value;
+    $_SERVER[$key] = $value;
+}
+
+require __DIR__ . '/../public/index.php';
